@@ -5,6 +5,8 @@ pub enum EffectKind {
     Allow = 0,
     Indeterminate = 1,
     Deny = 2,
+    Approval = 3,
+    Approved = 4,
 }
 
 pub trait Effector: Send + Sync {
