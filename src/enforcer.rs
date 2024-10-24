@@ -198,7 +198,12 @@ impl Enforcer {
                         EffectKind::Deny
                     } else if p_eft == "allow" {
                         EffectKind::Allow
-                    } else {
+                    } else if p_eft == "approval" {
+                        EffectKind::Approval
+                    } else if p_eft == "approved" {
+                        EffectKind::Approved
+                    }
+                    else {
                         EffectKind::Indeterminate
                     }
                 }
