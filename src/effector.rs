@@ -36,13 +36,13 @@ impl Effector for DefaultEffector {
     fn new_stream(&self, expr: &str, cap: usize) -> Box<dyn EffectorStream> {
         assert!(cap > 0);
 
-        let res = match expr {
-            "some(where (p_eft == allow))"
-            | "some(where (p_eft == allow)) && !some(where (p_eft == deny))"
-            | "priority(p_eft) || deny" => false,
-            "!some(where (p_eft == deny))" => true,
-            _ => panic!("unsupported effect: `{}`", expr),
-        };
+        // let res = match expr {
+        //     "some(where (p_eft == allow))"
+        //     | "some(where (p_eft == allow)) && !some(where (p_eft == deny))"
+        //     | "priority(p_eft) || deny" => false,
+        //     "!some(where (p_eft == deny))" => true,
+        //     _ => panic!("unsupported effect: `{}`", expr),
+        // };
 
         Box::new(DefaultEffectStream {
             done: false,
