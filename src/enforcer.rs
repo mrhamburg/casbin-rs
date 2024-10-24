@@ -26,14 +26,10 @@ use crate::{DefaultLogger, Logger};
 use async_trait::async_trait;
 use once_cell::sync::Lazy;
 use parking_lot::RwLock;
-use rhai::{
-    def_package,
-    packages::{
-        ArithmeticPackage, BasicArrayPackage, BasicMapPackage, LogicPackage,
-        Package,
-    },
-    Dynamic, Engine, EvalAltResult, ImmutableString, Scope,
-};
+use rhai::{def_package, packages::{
+    ArithmeticPackage, BasicArrayPackage, BasicMapPackage, LogicPackage,
+    Package,
+}, Dynamic, Engine, EvalAltResult, ImmutableString, RhaiNativeFunc, Scope};
 
 def_package! {
     pub CasbinPackage(lib) {
@@ -117,6 +113,11 @@ impl EventEmitter<Event> for Enforcer {
 }
 
 impl Enforcer {
+    // Temp workaround for add own functions
+    pub fn get_mut_engine(&mut self) -> &mut Engine {
+        &mut self.engine
+    }
+
     pub(crate) fn private_enforce(
         &self,
         rvals: &[Dynamic],
