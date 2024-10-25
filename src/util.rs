@@ -14,7 +14,7 @@ static ESC_A: Lazy<Regex> = Lazy::new(|| regex!(r"\b(r\d*|p\d*)\."));
 static ESC_G: Lazy<Regex> = Lazy::new(|| {
     regex!(r"\b(g\d*)\(((?:\s*[r|p]\d*\.\w+\s*,\s*){1,2}\s*[r|p]\d*\.\w+\s*)\)")
 });
-static ESC_C: Lazy<Regex> = Lazy::new(|| regex!(r#"(\s*"[^"]*"?|\s*[^,]*)"#));
+static ESC_C: Lazy<Regex> = Lazy::new(|| regex!(r#"(\s*"[^"]*"?|\s*[^,(]*(?:\([^)]*\)[^,]*)*)"#));
 pub(crate) static ESC_E: Lazy<Regex> =
     Lazy::new(|| regex!(r"\beval\(([^)]*)\)"));
 
@@ -177,6 +177,20 @@ mod tests {
                 "r.sub.Status == \"ACTIVE\"".to_owned(),
                 "/data1".to_owned(),
                 "read".to_owned()
+            ])
+        );
+    }
+
+    #[test]
+    fn test_csv_parse_11() {
+        assert_eq!(
+            parse_csv_line("p, d, AttributeExists(r.user, \"something\"), deny, hash_sha256"),
+            Some(vec![
+                "p".to_owned(),
+                "d".to_owned(),
+                "AttributeExists(r.user, \"something\")".to_owned(),
+                "deny".to_owned(),
+                "hash_sha256".to_owned()
             ])
         );
     }
