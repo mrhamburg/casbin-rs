@@ -60,7 +60,7 @@ impl EventEmitter<Event> for CachedEnforcer {
 impl CachedEnforcer {
     // Temp workaround for add own functions
     pub fn get_mut_engine(&mut self) -> &mut Engine {
-        &mut self.enforcer.get_mut_engine()
+        self.enforcer.get_mut_engine()
     }
 
     pub(crate) fn private_enforce(
