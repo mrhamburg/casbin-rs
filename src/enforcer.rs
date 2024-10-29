@@ -581,9 +581,10 @@ impl CoreApi for Enforcer {
 
         #[cfg(feature = "logging")]
         {
-            let rvals = rvals.iter().map(|x| x.to_string()).collect();
+            let rvals: Vec<String> =
+                rvals.iter().map(|x| x.to_string()).collect();
 
-            self.logger.print_enforce_log(rvals, authorized, false);
+            self.logger.print_enforce_log(&rvals, authorized, false);
 
             #[cfg(feature = "explain")]
             if let Some(indices) = indices {
@@ -597,7 +598,7 @@ impl CoreApi for Enforcer {
                     })
                     .collect();
 
-                self.logger.print_explain_log(rvals, rules);
+                self.logger.print_explain_log(&rvals, rules);
             }
         }
 
@@ -648,9 +649,10 @@ impl CoreApi for Enforcer {
 
         #[cfg(feature = "logging")]
         {
-            let rvals = rvals.iter().map(|x| x.to_string()).collect();
+            let rvals: Vec<String> =
+                rvals.iter().map(|x| x.to_string()).collect();
 
-            self.logger.print_enforce_log(rvals, authorized, false);
+            self.logger.print_enforce_log(&rvals, authorized, false);
 
             #[cfg(feature = "explain")]
             if let Some(indices) = indices {
@@ -664,7 +666,7 @@ impl CoreApi for Enforcer {
                     })
                     .collect();
 
-                self.logger.print_explain_log(rvals, rules);
+                self.logger.print_explain_log(&rvals, rules);
             }
         }
 

@@ -31,7 +31,7 @@ impl Logger for SLogger {
 
     fn print_enforce_log(
         &self,
-        rvals: Vec<String>,
+        rvals: &Vec<String>,
         authorized: bool,
         cached: bool,
     ) {
