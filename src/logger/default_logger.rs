@@ -41,7 +41,7 @@ impl Logger for DefaultLogger {
 
     fn print_enforce_log(
         &self,
-        rvals: Vec<String>,
+        rvals: &Vec<String>,
         authorized: bool,
         cached: bool,
     ) {
@@ -61,7 +61,7 @@ impl Logger for DefaultLogger {
     }
 
     #[cfg(feature = "explain")]
-    fn print_explain_log(&self, rules: Vec<String>) {
+    fn print_explain_log(&self, rvals: &Vec<String>, rules: Vec<String>) {
         if !self.is_enabled() {
             return;
         }

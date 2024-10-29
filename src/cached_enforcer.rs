@@ -218,11 +218,10 @@ impl CoreApi for CachedEnforcer {
 
         #[cfg(feature = "logging")]
         {
-            self.enforcer.get_logger().print_enforce_log(
-                rvals.iter().map(|x| x.to_string()).collect(),
-                authorized,
-                cached,
-            );
+            let rvals = rvals.iter().map(|x| x.to_string()).collect();
+            self.enforcer
+                .get_logger()
+                .print_enforce_log(rvals, authorized, cached);
 
             #[cfg(feature = "explain")]
             if let Some(indices) = indices {
@@ -236,7 +235,7 @@ impl CoreApi for CachedEnforcer {
                     })
                     .collect();
 
-                self.enforcer.get_logger().print_explain_log(rules);
+                self.enforcer.get_logger().print_explain_log(rvals, rules);
             }
         }
 
@@ -256,11 +255,11 @@ impl CoreApi for CachedEnforcer {
 
         #[cfg(feature = "logging")]
         {
-            self.enforcer.get_logger().print_enforce_log(
-                rvals.iter().map(|x| x.to_string()).collect(),
-                authorized,
-                cached,
-            );
+            let rvals = rvals.iter().map(|x| x.to_string()).collect();
+
+            self.enforcer
+                .get_logger()
+                .print_enforce_log(rvals, authorized, cached);
 
             #[cfg(feature = "explain")]
             if let Some(indices) = indices {
@@ -274,7 +273,7 @@ impl CoreApi for CachedEnforcer {
                     })
                     .collect();
 
-                self.enforcer.get_logger().print_explain_log(rules);
+                self.enforcer.get_logger().print_explain_log(rvals, rules);
             }
         }
 

@@ -26,10 +26,14 @@ use crate::{DefaultLogger, Logger};
 use async_trait::async_trait;
 use once_cell::sync::Lazy;
 use parking_lot::RwLock;
-use rhai::{def_package, packages::{
-    ArithmeticPackage, BasicArrayPackage, BasicMapPackage, LogicPackage,
-    Package,
-}, Dynamic, Engine, EvalAltResult, ImmutableString, RhaiNativeFunc, Scope};
+use rhai::{
+    def_package,
+    packages::{
+        ArithmeticPackage, BasicArrayPackage, BasicMapPackage, LogicPackage,
+        Package,
+    },
+    Dynamic, Engine, EvalAltResult, ImmutableString, RhaiNativeFunc, Scope,
+};
 
 def_package! {
     pub CasbinPackage(lib) {
@@ -202,8 +206,7 @@ impl Enforcer {
                         EffectKind::Approval
                     } else if p_eft == "approved" {
                         EffectKind::Approved
-                    }
-                    else {
+                    } else {
                         EffectKind::Indeterminate
                     }
                 }
@@ -578,11 +581,9 @@ impl CoreApi for Enforcer {
 
         #[cfg(feature = "logging")]
         {
-            self.logger.print_enforce_log(
-                rvals.iter().map(|x| x.to_string()).collect(),
-                authorized,
-                false,
-            );
+            let rvals = rvals.iter().map(|x| x.to_string()).collect();
+
+            self.logger.print_enforce_log(rvals, authorized, false);
 
             #[cfg(feature = "explain")]
             if let Some(indices) = indices {
@@ -596,7 +597,7 @@ impl CoreApi for Enforcer {
                     })
                     .collect();
 
-                self.logger.print_explain_log(rules);
+                self.logger.print_explain_log(rvals, rules);
             }
         }
 
@@ -647,11 +648,9 @@ impl CoreApi for Enforcer {
 
         #[cfg(feature = "logging")]
         {
-            self.logger.print_enforce_log(
-                rvals.iter().map(|x| x.to_string()).collect(),
-                authorized,
-                false,
-            );
+            let rvals = rvals.iter().map(|x| x.to_string()).collect();
+
+            self.logger.print_enforce_log(rvals, authorized, false);
 
             #[cfg(feature = "explain")]
             if let Some(indices) = indices {
@@ -665,7 +664,7 @@ impl CoreApi for Enforcer {
                     })
                     .collect();
 
-                self.logger.print_explain_log(rules);
+                self.logger.print_explain_log(rvals, rules);
             }
         }
 

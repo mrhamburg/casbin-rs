@@ -14,7 +14,8 @@ static ESC_A: Lazy<Regex> = Lazy::new(|| regex!(r"\b(r\d*|p\d*)\."));
 static ESC_G: Lazy<Regex> = Lazy::new(|| {
     regex!(r"\b(g\d*)\(((?:\s*[r|p]\d*\.\w+\s*,\s*){1,2}\s*[r|p]\d*\.\w+\s*)\)")
 });
-static ESC_C: Lazy<Regex> = Lazy::new(|| regex!(r#"(\s*"[^"]*"?|\s*[^,(]*(?:\([^)]*\)[^,]*)*)"#));
+static ESC_C: Lazy<Regex> =
+    Lazy::new(|| regex!(r#"(\s*"[^"]*"?|\s*[^,(]*(?:\([^)]*\)[^,]*)*)"#));
 pub(crate) static ESC_E: Lazy<Regex> =
     Lazy::new(|| regex!(r"\beval\(([^)]*)\)"));
 
