@@ -27,7 +27,7 @@ use crate::{error::ModelError, get_or_err};
 
 use async_trait::async_trait;
 use parking_lot::RwLock;
-use rhai::Dynamic;
+use rhai::{Dynamic, Engine};
 
 use std::{collections::HashMap, sync::Arc};
 
@@ -58,6 +58,11 @@ impl EventEmitter<Event> for CachedEnforcer {
 }
 
 impl CachedEnforcer {
+    // Temp workaround for add own functions
+    pub fn get_mut_engine(&mut self) -> &mut Engine {
+        &mut self.enforcer.get_mut_engine()
+    }
+
     pub(crate) fn private_enforce(
         &self,
         rvals: &[Dynamic],
