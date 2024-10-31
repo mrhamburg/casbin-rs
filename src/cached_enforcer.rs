@@ -92,10 +92,6 @@ impl CachedEnforcer {
             (authorized, false, indices)
         })
     }
-
-    pub fn set_cache(&mut self, cache: Box<dyn Cache<u64, bool>>) {
-        self.cache = cache;
-    }
 }
 
 #[async_trait]
